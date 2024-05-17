@@ -1,17 +1,17 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useOrganization } from "@clerk/nextjs";
 import { api } from "@/convex/_generated/api";
+import { useApiMutation } from "@/hooks/use-api-mutation";
+import { useOrganization } from "@clerk/nextjs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useMutation } from "convex/react";
 import { toast } from "sonner";
 
 export function EmptyBoards() {
   const router = useRouter();
   const { organization } = useOrganization();
-  const create = useMutation(api.board.create);
+  const { mutate: create, isLoading } = useApiMutation(api.board.create);
 
   const handleClick = () => {
     if (!organization) return;
@@ -22,7 +22,7 @@ export function EmptyBoards() {
     })
       .then((id) => {
         toast.success("Board created");
-        // router.push(`/board/${id}`);
+        router.push(`/board/${id}`);
       })
       .catch(() => {
         toast.error("Failed to create board");
@@ -37,7 +37,7 @@ export function EmptyBoards() {
         Start by creating a board for your organization
       </p>
       <div className="mt-6">
-        <Button size="lg" onClick={handleClick}>
+        <Button size="lg" onClick={handleClick} disabled={isLoading}>
           Create board
         </Button>
       </div>
