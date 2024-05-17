@@ -2,10 +2,33 @@
 
 import { Button } from "@/components/ui/button";
 import { useOrganization } from "@clerk/nextjs";
+import { api } from "@/convex/_generated/api";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useMutation } from "convex/react";
+import { toast } from "sonner";
 
 export function EmptyBoards() {
+  const router = useRouter();
+  const { organization } = useOrganization();
+  const create = useMutation(api.board.create);
+
+  const handleClick = () => {
+    if (!organization) return;
+
+    create({
+      title: "Untitled",
+      orgId: organization.id,
+    })
+      .then((id) => {
+        toast.success("Board created");
+        // router.push(`/board/${id}`);
+      })
+      .catch(() => {
+        toast.error("Failed to create board");
+      });
+  };
+
   return (
     <div className="h-full flex flex-col items-center justify-center">
       <Image src="/note.svg" alt="Empty" height={110} width={110} />
@@ -14,7 +37,9 @@ export function EmptyBoards() {
         Start by creating a board for your organization
       </p>
       <div className="mt-6">
-        <Button size="lg">Create board</Button>
+        <Button size="lg" onClick={handleClick}>
+          Create board
+        </Button>
       </div>
     </div>
   );
