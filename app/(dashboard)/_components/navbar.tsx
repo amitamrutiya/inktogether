@@ -4,8 +4,8 @@ import {
   OrganizationSwitcher,
   UserButton,
   useOrganization,
-} from "@clerk/nextjs";import { SearchInput } from "./sidebar/searchInput";
-import { InviteButton } from "./inviteButton";
+} from "@clerk/nextjs";import { SearchInput } from "./sidebar/search-input";
+import { InviteButton } from "./invite-button";
 ;
 
 export function Navbar() {

@@ -48,7 +48,7 @@ export function OrgSidebar() {
       />
       <div className="space-y-1 w-full">
         <Button
-          variant="ghost"
+          variant={favourites ? "ghost" : "secondary"}
           asChild
           size="lg"
           className="font-normal justify-start px-2 w-full"
