@@ -8,7 +8,7 @@ import { useState } from "react";
 
 export const useApiMutation = <
   Args extends DefaultFunctionArgs = any,
-  ReturnType = any
+  ReturnType = any,
 >(
   mutationFn: FunctionReference<"mutation", "public", Args, ReturnType>
 ) => {
