@@ -4,9 +4,6 @@ import { Info } from "./Info";
 import { Participants } from "./participants";
 import { Toolbar } from "./toolbar";
 
-
-const MAX_LAYERS = 100;
-
 interface CanvasProps {
   boardId: string;
 }
