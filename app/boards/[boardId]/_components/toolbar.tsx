@@ -11,6 +11,16 @@ import {
   Undo2,
 } from "lucide-react";
 import { ToolButton } from "./tool-button";
+import { CanvasState } from "@/app/types/canvas";
+
+interface ToolbarProps {
+  canvasState: CanvasState;
+  setCanvasState: (newState: CanvasState) => void;
+  undo: () => void;
+  redo: () => void;
+  canUndo: boolean;
+  canRedo: boolean;
+}
 
 export const Toolbar = ({}) => {
   return (
