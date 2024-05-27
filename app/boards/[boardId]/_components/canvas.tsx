@@ -4,6 +4,7 @@ import {
   colorToCss,
   connectionIdToColor,
   pointerEventToCanvasPoint,
+  resizeBounds,
 } from "@/lib/utils";
 import {
   useCanRedo,
@@ -194,6 +195,27 @@ export const Canvas = ({ boardId }: CanvasProps) => {
     [lastUsedColor]
   );
 
+  const resizeSelectedLayer = useMutation(
+    ({ self, storage }, point: Point) => {
+      if (canvasState.mode !== CanvasMode.Resizing) {
+        return;
+      }
+
+      const bounds = resizeBounds(
+        canvasState.initialBounds,
+        canvasState.corner,
+        point
+      );
+      const liveLayers = storage.get("layers");
+      const layer = liveLayers.get(self.presence.selection[0]);
+
+      if (layer) {
+        layer.update(bounds);
+      }
+    },
+    [canvasState]
+  );
+
   const handleResizeHandlePointerDown = useCallback(
     (corner: Side, initialBounds: XYWH) => {
       history.pause();
@@ -225,6 +247,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
       } else if (canvasState.mode === CanvasMode.Translating) {
         translateSelectedLayer(current);
       } else if (canvasState.mode === CanvasMode.Resizing) {
+        resizeSelectedLayer(current);
       } else if (canvasState.mode === CanvasMode.Pencil) {
         continueDrawing(current, e);
       }
