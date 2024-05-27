@@ -4,7 +4,6 @@ import {
   colorToCss,
   connectionIdToColor,
   pointerEventToCanvasPoint,
-
 } from "@/lib/utils";
 import {
   useCanRedo,
@@ -20,12 +19,22 @@ import { LiveObject } from "@liveblocks/client";
 import { nanoid } from "nanoid";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Toolbar } from "./toolbar";
-import { Camera, CanvasMode, CanvasState, Color, LayerType, Point, Side, XYWH } from "@/app/types/canvas";
+import {
+  Camera,
+  CanvasMode,
+  CanvasState,
+  Color,
+  LayerType,
+  Point,
+  Side,
+  XYWH,
+} from "@/app/types/canvas";
 import { CursorPresence } from "./cursor-presence";
 import { LayerPreview } from "./layer-preview";
 import { Participants } from "./participants";
 import { Path } from "./path";
-import {  Info } from "./Info";
+import { Info } from "./Info";
+import { SelectionBox } from "./selection-box";
 
 const MAX_LAYERS = 100;
 
@@ -276,14 +285,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
       }
       history.resume();
     },
-    [
-      camera,
-      canvasState,
-      history,
-      insertLayer,
-      unselectLayer,
-      setCanvasState,
-    ]
+    [camera, canvasState, history, insertLayer, unselectLayer, setCanvasState]
   );
 
   const handleLayerPointerDown = useMutation(
@@ -368,6 +370,9 @@ export const Canvas = ({ boardId }: CanvasProps) => {
               selectionColor={layerIdsToColorSelection[layerId]}
             />
           ))}
+          <SelectionBox
+            onResizeHandlePointerDown={handleResizeHandlePointerDown}
+          />
           {canvasState.mode === CanvasMode.SelectionNet &&
             canvasState.current && (
               <rect
