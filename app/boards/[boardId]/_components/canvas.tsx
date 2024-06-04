@@ -39,6 +39,8 @@ import { Path } from "./path";
 import { Info } from "./Info";
 import { SelectionBox } from "./selection-box";
 import { SelectionTools } from "./selection-tools";
+import { useDisableScrollBounce } from "@/hooks/use-disable-scroll-bounce";
+import { useDeleteLayers } from "@/hooks/use-delete-layers";
 
 const MAX_LAYERS = 100;
 
@@ -75,7 +77,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
     g: 255,
     b: 255,
   });
-
+  useDisableScrollBounce();
   const history = useHistory();
   const canUndo = useCanUndo();
   const canRedo = useCanRedo();
@@ -394,6 +396,8 @@ export const Canvas = ({ boardId }: CanvasProps) => {
     [setCanvasState, camera, history, canvasState.mode]
   );
 
+  const deleteLayers = useDeleteLayers();
+
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       switch (e.key) {
@@ -415,7 +419,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
     return () => {
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [history]);
+  }, [history, deleteLayers]);
 
   return (
     <main className="h-full w-full relative bg-neutral-100 touch-none">
