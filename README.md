@@ -4,6 +4,8 @@
 
 Ink Together - Real-time collaboration, versatile canvas, rich media, secure.
 
+https://github.com/amitamrutiya/inktogether/assets/91112485/4f68ea4f-27f7-4e78-8dbe-04dc65f027fb
+
 [![Ask Me Anything!](https://flat.badgen.net/static/Ask%20me/anything?icon=github&color=black&scale=1.01)](https://github.com/sanidhyy "Ask Me Anything!")
 [![GitHub license](https://flat.badgen.net/github/license/amitamrutiya/inktogether?icon=github&color=black&scale=1.01)](https://github.com/amitamrutiya/inktogether/blob/main/LICENSE "GitHub license")
 [![Maintenance](https://flat.badgen.net/static/Maintained/yes?icon=github&color=black&scale=1.01)](https://github.com/amitamrutiya/inktogether/commits/main "Maintenance")
